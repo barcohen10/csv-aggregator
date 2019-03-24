@@ -3,14 +3,14 @@ const WRITE_PATH = './data/aggregated'
 const MAX_CSV_LENGTH = 1024
 const LINE_TYPE = {
     HEADER: 'header',
-    REGULAR: 'regular'
+    BODY: 'body'
 }
 const AGGREGATION_FINISHED = 'aggregation_finished'
 
 module.exports = {
     DATA_PATH,
     WRITE_PATH,
-    MAX_CSV_LENGTH,
     LINE_TYPE,
+    MAX_CSV_LENGTH,
     AGGREGATION_FINISHED,
 }
