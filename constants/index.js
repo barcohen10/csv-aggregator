@@ -6,7 +6,6 @@ const LINE_TYPE = {
     BODY: 'body'
 }
 const WRITE_LAST_FILE_IN_MEMORY = 'write_last_file_in_memory'
-const AGGREGATION_FINISHED = 'aggregation_finished'
 
 module.exports = {
     DATA_PATH,
@@ -14,5 +13,4 @@ module.exports = {
     LINE_TYPE,
     MAX_CSV_LENGTH,
     WRITE_LAST_FILE_IN_MEMORY,
-    AGGREGATION_FINISHED,
 }
