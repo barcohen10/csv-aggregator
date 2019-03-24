@@ -4,11 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Bar Cohen",
   "license": "ISC",
-  "dependencies": {
-    "byline": "^5.0.0"
-  }
+  "dependencies": {}
 }
