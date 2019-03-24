@@ -1,9 +1,9 @@
-const LineAnalyzerStream = require('./line-analyzer-stream');
-const HashStream = require('./hash-stream')
-const CSVStream = require('./csv-stream')
+const createLineReaderStream = require('./line-reader-stream');
+const HashStream = require('./hash-stream');
+const CSVStream = require('./csv-stream');
 
 module.exports = {
-    LineAnalyzerStream,
+    createLineReaderStream,
     HashStream,
     CSVStream,
 }
