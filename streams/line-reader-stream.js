@@ -1,5 +1,5 @@
 const { Transform } = require('stream');
-const { LINE_TYPE } = require('../constants')
+const { LINE_TYPE } = require('../constants');
 
 function createLineReaderStream(type = LINE_TYPE.BODY) {
     return new Transform({
@@ -7,18 +7,18 @@ function createLineReaderStream(type = LINE_TYPE.BODY) {
             let lines = chunk
                 .toString()
                 .split(/\r\n/g)
-                .filter(line => !!line);
+                .filter(line => !!line)
 
             if (type === LINE_TYPE.HEADER) {
-                this.push(lines[0]);
+                this.push(lines[0])
             } else {
-                const bodyLines = lines.slice(1);
+                const bodyLines = lines.slice(1)
                 while (bodyLines.length > 0) {
-                    this.push(bodyLines.shift());
+                    this.push(bodyLines.shift())
                 }
             }
 
-            cb();
+            cb()
         },
     });
 }
