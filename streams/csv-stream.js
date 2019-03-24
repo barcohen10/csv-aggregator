@@ -82,7 +82,7 @@ class CSVStream {
             this[createNewFile]()
             this[addLine](line)
         } else {
-            console.log('Done! to fetch DB data run: npm read-db')
+            console.log('Done! to fetch DB data run: npm run read-db')
         }
     }
 
