@@ -1,7 +1,6 @@
 const appRoot = require('app-root-dir').get();
 const Sequelize = require('sequelize');
 const { join } = require('path');
-const { createHash } = require('./utils');
 
 const sequelize = new Sequelize('database', 'root', 'root', {
     dialect: 'sqlite',
@@ -38,12 +37,15 @@ class DB {
         }
         instance = this
         this.columns = columns ? columns.split(',') : []
+        this.initialized = false
     }
 
     init() {
         if (!this.appModel && this.columns) {
             this.appModel = sequelize.define('app', getSchema(this.columns))
-            return this.appModel.sync()
+            return this.appModel.sync().then(() => {
+                this.initialized = true
+            })
         }
         return Promise.resolve()
     }
