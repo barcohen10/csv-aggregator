@@ -9,5 +9,9 @@
   },
   "author": "Bar Cohen",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "app-root-dir": "^1.0.2",
+    "sequelize": "^5.1.1",
+    "sqlite3": "^4.0.6"
+  }
 }
