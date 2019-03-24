@@ -1,15 +1,9 @@
 const fs = require('fs');
 const zlib = require('zlib');
-const { LineStream } = require('byline');
-const { DATA_PATH, AGGREGATION_FINISHED } = require('./constants');
-const { LineAnalyzerStream, HashStream, CSVStream } = require('./streams')
+const { DATA_PATH, AGGREGATION_FINISHED, LINE_TYPE } = require('./constants');
+const { createLineReaderStream, HashStream, CSVStream } = require('./streams')
 const eventEmitter = require('./emitter')
 
-/**
- * Returns all compressed files in directory
- * 
- * @param directoryPath {String} path of directory
- */
 function getCompressedFiles(directoryPath) {
     return new Promise((resolve, reject) => {
         fs.readdir(directoryPath, (err, files) => {
@@ -22,19 +16,28 @@ function getCompressedFiles(directoryPath) {
     })
 }
 
+function getCsvHeader(fileName) {
+    return new Promise((resolve, reject) => {
+        fs.createReadStream(`${DATA_PATH}/${fileName}`)
+        .pipe(zlib.createGunzip())
+        .pipe(createLineReaderStream(LINE_TYPE.HEADER))
+        .on('data', chunk => resolve(chunk.toString()))
+        .on('error', err => reject(err));
+    });
+}
+
 (async () => {
     try {
         const allFiles = await getCompressedFiles(DATA_PATH)
-        const lineAnalyzerStream = new LineAnalyzerStream()
+        const csvHeader = await getCsvHeader(allFiles[0])
         const hashStream = new HashStream()
-        const csvStream = new CSVStream()
+        const csvStream = new CSVStream(csvHeader)
 
         const processFile = (fileName) => {
             return new Promise((resolve, reject) => {
                 fs.createReadStream(`${DATA_PATH}/${fileName}`)
                     .pipe(zlib.createGunzip())
-                    .pipe(new LineStream())
-                    .pipe(lineAnalyzerStream.getTransform())
+                    .pipe(createLineReaderStream())
                     .pipe(hashStream.getTransform())
                     .pipe(csvStream.getTransform())
                     .on('finish', () => {
