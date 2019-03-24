@@ -1,10 +1,9 @@
 const fs = require('fs');
 const zlib = require('zlib');
 const { Transform, PassThrough } = require('stream');
-const { MAX_CSV_LENGTH, WRITE_PATH, AGGREGATION_FINISHED } = require('../constants')
+const { MAX_CSV_LENGTH, WRITE_PATH, WRITE_LAST_FILE_IN_MEMORY, AGGREGATION_FINISHED } = require('../constants')
 const eventEmitter = require('../emitter')
 
-const setHeader = Symbol()
 const createNewFile = Symbol()
 const addLine = Symbol()
 const attachEventListeners = Symbol()
@@ -20,7 +19,7 @@ class CSVStream {
     }
 
     [attachEventListeners]() {
-        eventEmitter.on(AGGREGATION_FINISHED, this[writeFileToDisc].bind(this));
+        eventEmitter.on(WRITE_LAST_FILE_IN_MEMORY, this[writeFileToDisc].bind(this, true));
     }
 
     [createNewFile]() {
@@ -28,7 +27,7 @@ class CSVStream {
         this.file = `${this.header}`
     }
 
-    [writeFileToDisc](file = this.file, fileName = `aggregated${++this.filesCount}`) {
+    [writeFileToDisc](isLast = false, file = this.file, fileName = `aggregated${++this.filesCount}`) {
         if (!fs.existsSync(WRITE_PATH)) {
             fs.mkdirSync(WRITE_PATH)
         }
@@ -42,7 +41,10 @@ class CSVStream {
             .pipe(zlib.createGzip())
             .pipe(writeStream)
             .on('finish', () => {
-                console.log(`${filePath} has been created`)
+                if (isLast) {
+                    console.log(`${this.filesCount} compressed CSV files created under ${WRITE_PATH}`)
+                    eventEmitter.emit(AGGREGATION_FINISHED);
+                }
             })
     }
 
