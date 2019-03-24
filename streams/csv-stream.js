@@ -66,7 +66,7 @@ class CSVStream {
             readableObjectMode: true,
             writableObjectMode: true,
             transform(line, encoding, cb) {
-                if (line !== '') {
+                if (line !== null) {
                     if (!self.header && line.type === LINE_TYPE.HEADER) {
                         self[setHeader](line)
                         return cb(null, line)

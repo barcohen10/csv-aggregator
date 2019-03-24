@@ -29,7 +29,7 @@ class HashStream {
                     if (!self.hashedLines[hashedLine]) {
                         self.hashedLines[hashedLine] = true
                     } else {
-                        result = ''
+                        result = null
                     }
                 }
                 this.push(result)
