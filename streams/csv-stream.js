@@ -47,7 +47,7 @@ class CSVStream {
     }
 
     [addLine](line) {
-        this.file += `\n${line}`
+        this.file += `\r\n${line}`
         this.charactersLeft -= line.length
     }
 
