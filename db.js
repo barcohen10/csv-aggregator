@@ -59,8 +59,8 @@ class DB {
         }
     }
 
-    find(limit) {
-        return this.appModel.findAll({ limit })
+    find(limit = 10) {
+        return this.appModel.findAll({ limit, raw: true })
     }
 }
 
