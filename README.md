@@ -30,7 +30,7 @@ CSVStream (The main stream, will write to the disc & DB when the file is almost 
 **Custom transform streams** </br>
 * LineReaderStream - responsible for splitting the current file chunk into CSV body lines / CSV header line
 * HashStream - responsible for removing not unique lines by using MD5 hashing
-* CSVStream - The main stream, responsible for creating 1KB aggregated and compressed CSV files, saving the files to the disc & DB - one file at a time - **loads to app memory only 1KB at a time**.
+* CSVStream - The main stream, responsible for creating 1KB aggregated and compressed CSV files, saving the files to disc & DB (no more than one file at a time - **loads to app memory only 1KB at a time**).
 
 **DB** </br>
 SQLite Database is dynamically created using the CSV header as table schema, the DB contains only unique lines, the id of each record is the MD5 hashed version of the line.
