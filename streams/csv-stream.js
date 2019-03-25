@@ -37,7 +37,7 @@ class CSVStream {
     }
 
     [attachEventListeners]() {
-        eventEmitter.on(WRITE_LAST_FILE_IN_MEMORY, () => {debugger; this[saveAndCreate]('', true)});
+        eventEmitter.on(WRITE_LAST_FILE_IN_MEMORY, () => { debugger; this[saveAndCreate]('', true) });
     }
 
     [createNewFile]() {
