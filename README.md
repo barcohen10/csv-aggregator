@@ -8,7 +8,8 @@ In addition, inserts new data into *SQLite* DB under `./database.sqlite`
 Run `npm install && npm start`
 
 ## Read from Database
-After the first use, the easiest way to read the results inserted to DB will be using the command `npm run read-db [LIMIT_LINES]` </br> 
+After the first use, the easiest way to read the results inserted to DB </br> 
+will be using the command `npm run read-db [LIMIT_LINES]` </br> 
 for example: `npm run read-db 10` will fetch and log the first 10 rows in DB.
 
 ## The Implementation
