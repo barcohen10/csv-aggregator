@@ -9,7 +9,7 @@ Run `npm install && npm start`
 
 ## Read from Database
 After the aggregation process will finish, the application will ask the user if to fetch rows from DB, and if yes, how many rows  </br>
-![Screenshot](src/assets/error-screenshot.png)
+![Screenshot](assets/screenshot-db.png)
 
 ## The Implementation
 This solution considered high scale and performance, and because of that i decided to use
