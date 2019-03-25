@@ -60,7 +60,7 @@ class DB {
     }
 
     find(limit = 10) {
-        return this.appModel.findAll({ limit, raw: true })
+        return this.appModel && this.appModel.findAll({ limit, raw: true })
     }
 }
 
