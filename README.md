@@ -8,7 +8,8 @@ In addition, inserts new data to **SQLite** Database (`./database.sqlite`) using
 Run `npm install && npm start`
 
 ## Read from Database
-After the aggregation process will finish, the application will ask the user if to fetch rows from DB, and if yes, how many rows
+After the aggregation process will finish, the application will ask the user if to fetch rows from DB, and if yes, how many rows  </br>
+![Screenshot](src/assets/error-screenshot.png)
 
 ## The Implementation
 This solution considered high scale and performance, and because of that i decided to use
