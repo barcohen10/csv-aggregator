@@ -8,7 +8,7 @@ In addition, inserts new data to **SQLite** Database (`./database.sqlite`) using
 Run `npm install && npm start`
 
 ## Read from Database
-After the aggregation process will finish, the user will be asked if to fetch rows from DB, and if yes, how many rows  </br>
+After the aggregation process will be finished, the user will be asked, if to fetch rows from the DB, and if yes, how many rows  </br>
 For example: </br>
 ![Screenshot](assets/screenshot-db.png)
 
@@ -34,4 +34,7 @@ CSVStream (The main stream, will write to the disc & DB when the file is almost 
 
 **DB** </br>
 SQLite Database is dynamically created using the CSV header as table schema, the DB contains only unique lines, the id of each record is the MD5 hashed version of the line.
+
+## Unit tests
+using Mocha and Chai, run `npm test`
 
