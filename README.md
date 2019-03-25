@@ -2,7 +2,7 @@
 csv-aggregator is a Node.js service that aggregates small compressed CSV files under `./data` </br>
 into bigger compressed CSV files (Each file up to 1KB) under `./data/aggregated`
 and reduce size by elimination of duplicated lines  </br>
-In addition, inserts new data into *SQLite* DB under `./database.sqlite`
+In addition, inserts new data to *SQLite* Database isionng Sequelize (a promise-based ORM for Node) under `./database.sqlite` under `./database.sqlite`
 
 ## First use
 Run `npm install && npm start`
