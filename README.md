@@ -36,6 +36,5 @@ CSVStream (The main stream, will write to the disc & DB when the file is almost 
 SQLite Database is dynamically created using the CSV header as table schema, the DB contains only unique lines, the id of each record is the MD5 hashed version of the line.
 
 ## Unit tests
-using Mocha and Chai </br>
-run `npm test`
+using Mocha and Chai, run `npm test`
 
