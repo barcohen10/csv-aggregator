@@ -3,6 +3,7 @@ const zlib = require('zlib');
 const { DATA_PATH, WRITE_LAST_FILE_IN_MEMORY, LINE_TYPE } = require('./constants');
 const { createLineReaderStream, HashStream, CSVStream } = require('./streams');
 const eventEmitter = require('./emitter');
+const { getCompressedFiles } = require('./utils');
 
 function getCsvHeader(fileName) {
     return new Promise((resolve, reject) => {
@@ -11,18 +12,6 @@ function getCsvHeader(fileName) {
             .pipe(createLineReaderStream(LINE_TYPE.HEADER))
             .on('data', chunk => resolve(chunk.toString()))
             .on('error', err => reject(err))
-    })
-}
-
-function getCompressedFiles(directoryPath) {
-    return new Promise((resolve, reject) => {
-        fs.readdir(directoryPath, (err, files) => {
-            if (err) {
-                return reject(err)
-            }
-            resolve(files.filter(f => f.includes(".gz")
-                && !fs.lstatSync(`${directoryPath}/${f}`).isDirectory()))
-        })
     })
 }
 
@@ -40,12 +29,8 @@ function getCompressedFiles(directoryPath) {
                     .pipe(createLineReaderStream())
                     .pipe(hashStream.getTransform())
                     .pipe(csvStream.getTransform())
-                    .on('finish', () => {
-                        resolve()
-                    })
-                    .on('error', () => {
-                        reject()
-                    })
+                    .on('finish', resolve)
+                    .on('error', reject)
             })
         }
 
