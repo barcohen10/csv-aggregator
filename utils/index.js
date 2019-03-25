@@ -3,7 +3,7 @@ const rl = require('readline').createInterface({
     output: process.stdout
 })
 
-function offerDBFind(cb) {
+function askIfToFetchFromDB(cb) {
     rl.question('Fetch results from DB? (yes/no)\n', (answer) => {
         if (answer === 'yes') {
             rl.question('How many rows?\n', (amount) => {
@@ -19,5 +19,5 @@ function offerDBFind(cb) {
 }
 
 module.exports = {
-    offerDBFind
+    askIfToFetchFromDB
 }

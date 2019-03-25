@@ -2,8 +2,9 @@ const fs = require('fs');
 const zlib = require('zlib');
 const crypto = require('crypto');
 const { Transform, PassThrough } = require('stream');
-const { MAX_CSV_LENGTH, WRITE_PATH, WRITE_LAST_FILE_IN_MEMORY } = require('../constants')
-const eventEmitter = require('../emitter')
+const { MAX_CSV_LENGTH, WRITE_PATH, WRITE_LAST_FILE_IN_MEMORY } = require('../constants');
+const { askIfToFetchFromDB } = require('../utils');
+const eventEmitter = require('../emitter');
 const DB = require('../db');
 
 const createNewFile = Symbol()
@@ -36,7 +37,7 @@ class CSVStream {
     }
 
     [attachEventListeners]() {
-        eventEmitter.on(WRITE_LAST_FILE_IN_MEMORY, this[saveAndCreate].bind(this, '', true));
+        eventEmitter.on(WRITE_LAST_FILE_IN_MEMORY, () => {debugger; this[saveAndCreate]('', true)});
     }
 
     [createNewFile]() {
@@ -82,7 +83,13 @@ class CSVStream {
             this[createNewFile]()
             this[addLine](line)
         } else {
-            console.log('Done! to fetch DB data run: npm run read-db')
+            console.log('DONE!')
+            askIfToFetchFromDB(async (numOfRows) => {
+                if (numOfRows) {
+                    const records = await this.db.find(numOfRows)
+                    console.log(records)
+                }
+            })
         }
     }
 
