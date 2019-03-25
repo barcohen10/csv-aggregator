@@ -21,8 +21,13 @@ I'm piping the output of the readable stream (the current file) </br>
 ↓ </br>
 zlib.createGunzip() (unzip the file) </br>
 ↓ </br>
-createLineReaderStream (will extract the body lines) </br>
+LineReaderStream (will extract the body lines) </br>
 ↓ </br>
 HashStream (will check if the line is unique) </br>
 ↓ </br>
 CSVStream (The main stream, will write to the disc & DB when the file is almost exceed 1KB)
+
+**Custom transform streams** </br>
+* LineReaderStream - responsible for splitting the current file chunk into CSV body lines / CSV header line
+* HashStream - responsible for removing not unique lines by using MD5 hashing
+* CSVStream - The main stream, responsible for creating 1KB aggregated and compressed CSV files, saving the files to the disc & DB - one file at a time - loads to app memory only 1KB at a time.
