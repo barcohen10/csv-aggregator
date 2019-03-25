@@ -12,7 +12,7 @@ After the aggregation process will finish, the user will be asked if to fetch ro
 For example: </br>
 ![Screenshot](assets/screenshot-db.png)
 
-## The Implementation
+## Few words about the implementation
 This solution considered high scale and performance, and because of that i decided to use
 **Node.js streams**, through all the process - from reading the small CSV files to saving the data in DISC & DB </br>
 
